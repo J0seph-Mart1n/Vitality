@@ -1,0 +1,38 @@
+export const recentScans =[
+  {
+    id: '1',
+    title: 'Greek Yogurt - Organic',
+    subtitle: '150 kcal • 15g Protein',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCECitLV_GabD0nin2c4r4OTYZ6spSNDNwMLXHIaZjn_k4kdjWUv5VmwoUmSOPcO-kfUDFkAkNkS4PaN4COxRw7-CHFtBQ-P57KFKnuVRJk5M3pr6qsWdk4A3oh0kBDqnhEcJmvX9gbB_kJS_GApsQ_lTMHSttYQr3C0TjJm3k61DzaZd_ZdiQN5AbdFlJjv25pqQuOAvePdLcKI_an2xE2tnRDQSJ1G-m_4GG-KbW9sM233DbsWcaYoIoFYh01L5Q8Z0_jE6ayKMw',
+    statusText: 'Excellent',
+    statusColor: colors.primary,
+    icon: 'check-circle',
+  },
+  {
+    id: '2',
+    title: 'Almond Protein Bar',
+    subtitle: '220 kcal • 22g Sugar',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkMByeSTm2dYaCnDYWQEcFP_K6-kxzfwtkxQzfwGKHz05Lf6Iy5hxTZaCwnrCmbOOSGtBteKkEgqvZtoBLrFwV7c2sJstNV5VsRkXvlPzTJp5mKNzRe8mb8_8XCqe0cM5jcwwca28eNzF6YYwzGNFN5tSh1KTYBIlbmGPZLd0YVLfxhI-PPmuubcK9Eb9GZHcRb7DpAexbHoTcblzoWD0p9YTtVR5YCU02QKWZbuRH0PEvSB9zsHTAdPnQ5lZgiEHEm7k5sbPtAuc',
+    statusText: 'High Sugar',
+    statusColor: colors.tertiary,
+    icon: 'warning',
+  },
+  {
+    id: '3',
+    title: 'Cold Pressed Apple Juice',
+    subtitle: '110 kcal • 24g Carbs',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAtsRWsnRo1cyberbmxSyWLov61ZXMus1vjHshpjMR1311xB4ENkwCkg2qgiFXr8v6KWNl6UkDQSoOqDumDIXDVShvQ3P2NqZc0Ulflvs4mH9KX_DVQgL6GGq_oM2bh739lusLvS7j7QrJGbmLHweTW4MpPTLXvEUQspYMhly7Hg4TY_uvSkSPnc8DUA9-Ue3cyRiUDriM33O0SN87GO0Kp9GPQUCJAMZn-KV7-RscJaPG54WLogmecqRBFZS6OKCq7O4fT3Y8qalA',
+    statusText: 'Pure',
+    statusColor: colors.primary,
+    icon: 'check-circle',
+  },
+  {
+    id: '4',
+    title: 'Natural Peanut Butter',
+    subtitle: '190 kcal • 16g Fat',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuACrH1BDrpUx_NBTuFYb07PDP7R6QjtxnlmPdixKBA6N9GGdZwZvmeGoDW-VhY7hYTFJ-e8W7gbk8OiDM21IiQYNDE849FFoEJURFznxuzceVIbVA276yiSqKX7uF6PXlc9bYb_Pxm0COlW96TbvNd3jFiDs_48VF82A1RqdKftuTbdti4kadEwpowFy1y1rYqtb1HsOp7bHjfWL7IgFOxKtC_AOKz161ZTktpbuka8yALeTDjxUUwajdpkyJ4ZtZV0Zse6ZQ30upg',
+    statusText: 'Healthy Fat',
+    statusColor: colors.primary,
+    icon: 'check-circle',
+  },
+];
