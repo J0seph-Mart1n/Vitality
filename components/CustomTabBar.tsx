@@ -3,10 +3,13 @@ import { View, Text, StyleSheet, Platform, Pressable } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+  const insets = useSafeAreaInsets();
+  
   return (
-    <View style={styles.tabBar}>
+    <View style={[styles.tabBar, { height: 75, bottom: insets.bottom }]}>
       <View style={styles.tabContent}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
@@ -85,7 +88,6 @@ const styles = StyleSheet.create({
     elevation: 0,
     backgroundColor: '#baf5d6ff',
     borderTopWidth: 0,
-    height: Platform.OS === 'ios' ? 90 : 80,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -8 },
     shadowOpacity: 0.04,
@@ -102,7 +104,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    paddingBottom: Platform.OS === 'ios' ? 20 : 0, 
   },
   navItemContainer: {
     flex: 1,
