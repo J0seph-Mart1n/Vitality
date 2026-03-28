@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform, Pressable } from 'react-native';
-import { BlurView } from 'expo-blur';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

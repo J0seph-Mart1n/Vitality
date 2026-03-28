@@ -67,6 +67,27 @@ const ScanScreen = () => {
             });
             // You can handle the image URI here (e.g., send to API, show preview)
             Alert.alert('Photo Captured!', `Image saved to cache: ${photo.uri.substring(0, 50)}...`);
+            const formData = new FormData();
+            formData.append('image', {
+                uri: photo.uri,
+                type: 'image/jpeg',
+                name: 'nutrition.jpg',
+            });
+
+            try {
+                const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+                const response = await fetch(`${apiUrl}/analyze-label`, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Content-Type': 'multipart/form-data' },
+                });
+                
+                const data = await response.json();
+                console.log("Analysis Results:", data);
+                // Render data.benefits and data.harmful_effects in your UI
+            } catch (error) {
+                console.error(error);
+            }
         } catch (error) {
             console.error('Failed to take photo', error);
         }
@@ -96,7 +117,7 @@ const ScanScreen = () => {
             {isFocused && (
                 <CameraView
                     ref={cameraRef}
-                    style={StyleSheet.absoluteFillObject}
+                    style={[StyleSheet.absoluteFillObject, styles.camera]}
                     facing="back"
                     enableTorch={flash}
                 >
@@ -236,6 +257,10 @@ const styles = StyleSheet.create({
     permissionButtonText: {
         color: '#fff',
         fontWeight: 'bold',
+    },
+    camera:{
+        width: '100%',
+        height: '100%',
     },
     // -- Overlay & Cutout System --
     overlayContainer: {
