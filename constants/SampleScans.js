@@ -9,6 +9,8 @@ export const recentScans =[
     statusText: 'Excellent',
     statusColor: colors.primary,
     icon: 'check-circle',
+    score: 92,
+    date: 'Scanned Oct 24, 2023 10:45 AM',
   },
   {
     id: '2',
@@ -18,6 +20,8 @@ export const recentScans =[
     statusText: 'High Sugar',
     statusColor: colors.tertiary,
     icon: 'warning',
+    score: 45,
+    date: 'Scanned Oct 24, 2023 10:45 AM',
   },
   {
     id: '3',
@@ -27,6 +31,8 @@ export const recentScans =[
     statusText: 'Pure',
     statusColor: colors.primary,
     icon: 'check-circle',
+    score: 88,
+    date: 'Scanned Oct 24, 2023 10:45 AM',
   },
   {
     id: '4',
@@ -36,5 +42,18 @@ export const recentScans =[
     statusText: 'Healthy Fat',
     statusColor: colors.primary,
     icon: 'check-circle',
+    score: 78,
+    date: 'Scanned Oct 24, 2023 10:45 AM',
+  },
+  {
+    id: '5',
+    title: 'Natural Peanut Butter',
+    subtitle: '190 kcal • 16g Fat',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuACrH1BDrpUx_NBTuFYb07PDP7R6QjtxnlmPdixKBA6N9GGdZwZvmeGoDW-VhY7hYTFJ-e8W7gbk8OiDM21IiQYNDE849FFoEJURFznxuzceVIbVA276yiSqKX7uF6PXlc9bYb_Pxm0COlW96TbvNd3jFiDs_48VF82A1RqdKftuTbdti4kadEwpowFy1y1rYqtb1HsOp7bHjfWL7IgFOxKtC_AOKz161ZTktpbuka8yALeTDjxUUwajdpkyJ4ZtZV0Zse6ZQ30upg',
+    statusText: 'Healthy Fat',
+    statusColor: colors.primary,
+    icon: 'check-circle',
+    score: 78,
+    date: 'Scanned Oct 24, 2023 10:45 AM',
   },
 ];
