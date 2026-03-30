@@ -33,8 +33,9 @@ export default function SignupScreen() {
   const handleSignup = () => {
     // Perform account creation logic here...
     
-    // Redirect into the main app dashboard on success
-    router.replace('/(tabs)');
+    // Redirect into the main app dashboard on success! 
+    // Since (tabs) is now nested inside the (drawer) layout, we specify the full path!
+    router.replace('/(drawer)/(tabs)');
   };
 
   return (

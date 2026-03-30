@@ -3,7 +3,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { recentScans } from '@/constants/SampleScans';
 import { colors } from '@/constants/Colors';
 
+const VISIBLE_COUNT = 3;
+
 export default function RecentScans() {
+    
+    const displayedScans = recentScans.slice(0, VISIBLE_COUNT);
+
     return (
         <View style={styles.section}>
           <View style={styles.recentScansHeader}>
@@ -14,7 +19,7 @@ export default function RecentScans() {
           </View>
 
           <View style={styles.scansGrid}>
-            {recentScans.map((scan) => (
+            {displayedScans.map((scan) => (
               <TouchableOpacity key={scan.id} style={styles.scanItem}>
                 <Image source={{ uri: scan.image }} style={styles.scanImage} />
                 <View style={styles.scanDetails}>

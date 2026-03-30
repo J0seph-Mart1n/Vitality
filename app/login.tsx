@@ -33,8 +33,8 @@ export default function LoginScreen() {
         // 1. Perform your authentication logic here...
 
         // 2. Navigate to the Dashboard (the index file inside the tabs folder)
-        // We use .replace() so the user cannot use the back button to return to the login screen
-        router.replace('/(tabs)');
+        // Since (tabs) is now nested inside the (drawer) layout, we specify the full path!
+        router.replace('/(drawer)/(tabs)');
     };
 
     return (
