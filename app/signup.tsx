@@ -9,11 +9,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '@/FirebaseConfig';
 
 const colors = {
   brandGreen: '#4CAF50',
@@ -27,15 +30,34 @@ const colors = {
 
 export default function SignupScreen() {
   const [name, setName] = useState('');
-  const[email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
+    if (!name || !email || !password) {
+      setError('Please fill in all fields.');
+      return;
+    }
+
     // Perform account creation logic here...
-    
+    setLoading(true);
+    setError('');
+    try {
+      const response = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
+      console.log(response);
+      router.replace('/(drawer)/(tabs)');
+    } catch (err: any) {
+      console.log(err);
+      setError('Failed to sign up. Please try again.');
+    } finally {
+      setLoading(false);
+    }
     // Redirect into the main app dashboard on success! 
     // Since (tabs) is now nested inside the (drawer) layout, we specify the full path!
-    router.replace('/(drawer)/(tabs)');
+
+    
   };
 
   return (
@@ -61,7 +83,7 @@ export default function SignupScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Glassmorphism Panel */}
         <BlurView intensity={95} tint="light" style={styles.glassPanel}>
-          
+
           {/* Header */}
           <View style={styles.header}>
             <View style={styles.logoBox}>
@@ -124,10 +146,19 @@ export default function SignupScreen() {
               </View>
             </View>
 
+            {/* Error Logic */}
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
             {/* Signup Button */}
-            <TouchableOpacity style={styles.actionBtn} activeOpacity={0.8} onPress={handleSignup}>
-              <Text style={styles.actionBtnText}>Sign Up</Text>
-              <MaterialIcons name="arrow-forward" size={20} color={colors.white} />
+            <TouchableOpacity style={styles.actionBtn} activeOpacity={0.8} onPress={handleSignup} disabled={loading}>
+              {loading ? (
+                <ActivityIndicator color={colors.white} />
+              ) : (
+                <>
+                  <Text style={styles.actionBtnText}>Sign Up</Text>
+                  <MaterialIcons name="arrow-forward" size={20} color={colors.white} />
+                </>
+              )}
             </TouchableOpacity>
           </View>
 
@@ -258,6 +289,13 @@ const styles = StyleSheet.create({
   inputIcon: {
     position: 'absolute',
     right: 16,
+  },
+  errorText: {
+    color: '#ff4444',
+    fontSize: 12,
+    fontWeight: '600',
+    marginTop: 4,
+    textAlign: 'center',
   },
   actionBtn: {
     height: 56,

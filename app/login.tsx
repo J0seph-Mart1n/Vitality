@@ -9,11 +9,15 @@ import {
     KeyboardAvoidingView,
     Platform,
     ScrollView,
+    ActivityIndicator,
 } from 'react-native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '@/FirebaseConfig';
+
 
 const colors = {
     brandGreen: '#4CAF50',
@@ -28,14 +32,34 @@ const colors = {
 export default function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const handleLogin = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleLogin = async () => {
+        if (!email || !password) {
+            setError('Please enter both email and password.');
+            return;
+        }
         
         // 1. Perform your authentication logic here...
-
+        setLoading(true);
+        setError('');
+        try {
+            const response = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
+            console.log(response);
+            router.replace('/(drawer)/(tabs)');
+        } catch (err: any) {
+            console.log(err);
+            setError('Failed to log in. Please check your credentials.');
+        } finally {
+            setLoading(false);
+        }
         // 2. Navigate to the Dashboard (the index file inside the tabs folder)
         // Since (tabs) is now nested inside the (drawer) layout, we specify the full path!
-        router.replace('/(drawer)/(tabs)');
+        
     };
+
+    
 
     return (
         <KeyboardAvoidingView
@@ -107,10 +131,19 @@ export default function LoginScreen() {
                     </View>
                 </View>
 
+                {/* Error Logic */}
+                {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
                 {/* Login Button */}
-                <TouchableOpacity style={styles.loginBtn} activeOpacity={0.8} onPress={handleLogin}>
-                    <Text style={styles.loginBtnText}>Log In</Text>
-                    <MaterialIcons name="arrow-forward" size={20} color={colors.white} />
+                <TouchableOpacity style={styles.loginBtn} activeOpacity={0.8} onPress={handleLogin} disabled={loading}>
+                    {loading ? (
+                        <ActivityIndicator color={colors.white} />
+                    ) : (
+                        <>
+                            <Text style={styles.loginBtnText}>Log In</Text>
+                            <MaterialIcons name="arrow-forward" size={20} color={colors.white} />
+                        </>
+                    )}
                 </TouchableOpacity>
             </View>
 
@@ -246,6 +279,13 @@ const styles = StyleSheet.create({
     inputIcon: {
         position: 'absolute',
         right: 16,
+    },
+    errorText: {
+        color: '#ff4444',
+        fontSize: 12,
+        fontWeight: '600',
+        marginTop: 4,
+        textAlign: 'center',
     },
     loginBtn: {
         height: 56,

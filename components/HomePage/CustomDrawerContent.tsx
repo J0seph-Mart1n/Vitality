@@ -4,6 +4,7 @@ import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawe
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import { FIREBASE_AUTH } from '@/FirebaseConfig';
 
 const colors = {
   brandGreen: '#4CAF50',
@@ -14,6 +15,12 @@ const colors = {
 };
 
 export default function CustomDrawerContent(props: any) {
+
+  const handleSignOut = async () => {
+    await FIREBASE_AUTH.signOut();
+    router.replace('/login');
+  }
+
   return (
     <View style={styles.container}>
       {/* Dynamic Green Gradient Background */}
@@ -67,7 +74,7 @@ export default function CustomDrawerContent(props: any) {
         <TouchableOpacity 
           style={styles.logoutBtn} 
           activeOpacity={0.8}
-          onPress={() => router.replace('/login')}
+          onPress={handleSignOut}
         >
           <MaterialIcons name="logout" size={22} color="#ffe5e5" />
           <Text style={styles.logoutText}>Sign Out</Text>
