@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
+import { router } from 'expo-router';
 
 const colors = {
   primaryFixed: '#a3f69c',
@@ -65,9 +66,9 @@ const ScanScreen = () => {
             const photo = await cameraRef.current.takePictureAsync({
             quality: 0.8,
             });
-            // You can handle the image URI here (e.g., send to API, show preview)
-            Alert.alert('Photo Captured!', `Image saved to cache: ${photo.uri.substring(0, 50)}...`);
+            
             const formData = new FormData();
+            // @ts-ignore
             formData.append('image', {
                 uri: photo.uri,
                 type: 'image/jpeg',
@@ -75,18 +76,27 @@ const ScanScreen = () => {
             });
 
             try {
-                const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-                const response = await fetch(`${apiUrl}/analyze-label`, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Content-Type': 'multipart/form-data' },
-                });
+                // const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+                // const response = await fetch(`${apiUrl}/analyze-label`, {
+                //     method: 'POST',
+                //     body: formData,
+                //     headers: { 'Content-Type': 'multipart/form-data' },
+                // });
                 
-                const data = await response.json();
-                console.log("Analysis Results:", data);
-                // Render data.benefits and data.harmful_effects in your UI
+                // const data = await response.json();
+                // console.log("Analysis Results:", data);
+                
+                // Transfer to the report page, passing the photo URI and backend data as parameters.
+                router.push({
+                    pathname: '/report',
+                    params: { 
+                        imageUri: photo.uri,
+                        // analysisData: JSON.stringify(data)
+                    }
+                });
             } catch (error) {
-                console.error(error);
+                console.error('Analysis failed:', error);
+                Alert.alert('Analysis Failed', 'Could not fetch analysis from backend.');
             }
         } catch (error) {
             console.error('Failed to take photo', error);

@@ -6,9 +6,8 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="login" />
-        <Stack.Screen name="signup" />
-        {/* We now point the root routing strictly to the Drawer layer! */}
+        {/* <Stack.Screen name="login" />
+        <Stack.Screen name="signup" /> */}
         <Stack.Screen name="(drawer)" />
       </Stack>
     </GestureHandlerRootView>
