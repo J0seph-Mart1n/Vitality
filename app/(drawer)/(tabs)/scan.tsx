@@ -16,6 +16,7 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router } from 'expo-router';
+import { FIREBASE_AUTH } from '@/FirebaseConfig';
 
 const colors = {
   primaryFixed: '#a3f69c',
@@ -72,6 +73,13 @@ const ScanScreen = () => {
             });
             
             try {
+                // 1. Get the current user
+                const user = FIREBASE_AUTH.currentUser;
+                if (!user) throw new Error("User not logged in");
+
+                // 2. Get the Firebase ID token
+                const idToken = await user.getIdToken();
+                
                 const formData = new FormData();
                 // @ts-ignore
                 formData.append('image', {
@@ -84,7 +92,9 @@ const ScanScreen = () => {
                 const response = await fetch(`${apiUrl}/analyze-label`, {
                     method: 'POST',
                     body: formData,
-                    headers: { 'Content-Type': 'multipart/form-data' },
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`, // <--- The token goes here
+                    },
                 });
                 
                 const data = await response.json();
