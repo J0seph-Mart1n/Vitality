@@ -52,3 +52,24 @@ export const HistoryColors = {
   tertiaryContainer: '#c59300',
   error: '#ba1a1a',
 };
+
+export const ReportColors = {
+  background: '#f9f9f9',
+  onBackground: '#1a1c1c',
+  surfaceContainerLowest: '#ffffff',
+  surfaceContainerLow: '#f3f3f3',
+  surfaceContainerHighest: '#e2e2e2',
+  onSurface: '#1a1c1c',
+  onSurfaceVariant: '#3f4a3c',
+  primary: '#1b6d24',
+  primaryLight: 'rgba(27, 109, 36, 0.1)', // bg-primary/10
+  secondaryContainer: 'rgba(189, 239, 190, 0.3)', // bg-secondary-container/30
+  onSecondaryContainer: '#426e47',
+  tertiary: '#795900',
+  tertiaryFixed: 'rgba(255, 223, 160, 0.3)', // bg-tertiary-fixed/30
+  onTertiaryContainer: '#433000',
+  inverseSurface: '#2f3131',
+  inverseOnSurface: '#f1f1f1',
+  white: '#ffffff',
+  outlineVariant: 'rgba(190, 202, 185, 0.15)',
+};
