@@ -75,7 +75,7 @@ export default function ScanReportScreen() {
         <NutritionalTable mappedNutritionFacts={mappedNutritionFacts} />
 
         {/* Vitality Insight Section */}
-        <Insight summaryInsight={summaryInsight} />
+        <Insight summaryInsight={summaryInsight} parsedData={parsedData} />
 
       </ScrollView>
     </SafeAreaView>
