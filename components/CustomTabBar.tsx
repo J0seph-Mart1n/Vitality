@@ -6,17 +6,17 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
-  
+
   return (
     <View style={[styles.tabBar, { height: 75, bottom: insets.bottom }]}>
       <View style={styles.tabContent}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const isFocused = state.index === index;
-          
+
           let iconName = '';
           let label = options.title !== undefined ? options.title : route.name;
-          
+
           if (route.name === 'index') {
             iconName = 'dashboard';
             label = 'Home';
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    overflow: 'hidden', 
+    overflow: 'hidden',
   },
   tabContent: {
     flex: 1,

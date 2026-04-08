@@ -17,7 +17,7 @@ export default function TabLayout() {
           title: 'Dashboard',
         }}
       />
-      
+
       {/* Scan Route */}
       <Tabs.Screen
         name="scan"

@@ -1,6 +1,6 @@
 import { colors } from '@/constants/Colors';
 
-export const recentScans =[
+export const recentScans = [
   {
     id: '1',
     title: 'Greek Yogurt - Organic',

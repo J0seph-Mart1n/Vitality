@@ -25,51 +25,51 @@ export const HistoryEntries = ({ displayedScans }: HistoryEntriesProps) => {
                 const isWarning = item.score < 70;
                 const badgeBgColor = isWarning ? 'rgba(197, 147, 0, 0.2)' : 'rgba(27, 109, 36, 0.1)';
                 const badgeTextColor = isWarning ? HistoryColors.tertiaryContainer : HistoryColors.primary;
-                
+
                 return (
-                <TouchableOpacity 
-                    key={item.id} 
-                    style={styles.card}
-                    onPress={() => {
-                        if (item.rawData) {
-                            router.push({
-                                pathname: '/report',
-                                params: { 
-                                    analysisData: JSON.stringify(item.rawData),
-                                }
-                            });
-                        }
-                    }}
-                >
-                    
-                    <View style={styles.cardContent}>
-                        <View style={styles.cardTop}>
-                            <View style={styles.textGroup}>
-                                <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
-                                <Text style={styles.cardDate}>{item.date}</Text>
+                    <TouchableOpacity
+                        key={item.id}
+                        style={styles.card}
+                        onPress={() => {
+                            if (item.rawData) {
+                                router.push({
+                                    pathname: '/report',
+                                    params: {
+                                        analysisData: JSON.stringify(item.rawData),
+                                    }
+                                });
+                            }
+                        }}
+                    >
+
+                        <View style={styles.cardContent}>
+                            <View style={styles.cardTop}>
+                                <View style={styles.textGroup}>
+                                    <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
+                                    <Text style={styles.cardDate}>{item.date}</Text>
+                                </View>
+
+                                <View style={[styles.badge, { backgroundColor: badgeBgColor }]}>
+                                    <Text style={[styles.badgeText, { color: badgeTextColor }]}>
+                                        {item.score}
+                                    </Text>
+                                    <Text style={[styles.badgeScore, { color: badgeTextColor }]}>SCORE</Text>
+                                </View>
                             </View>
-                            
-                            <View style={[styles.badge, { backgroundColor: badgeBgColor }]}>
-                                <Text style={[styles.badgeText, { color: badgeTextColor }]}>
-                                    {item.score}
-                                </Text>
-                                <Text style={[styles.badgeScore, { color: badgeTextColor }]}>SCORE</Text>
+                            {/* Actions (Always visible on mobile instead of hover) */}
+                            <View style={styles.cardActions}>
+                                <TouchableOpacity style={styles.actionButton}>
+                                    <MaterialIcons name="share" size={16} color={HistoryColors.secondary} />
+                                    <Text style={styles.actionTextShare}>Share</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.actionButton}>
+                                    <MaterialIcons name="delete-outline" size={16} color="rgba(186, 26, 26, 0.7)" />
+                                    <Text style={styles.actionTextRemove}>Remove</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                        {/* Actions (Always visible on mobile instead of hover) */}
-                        <View style={styles.cardActions}>
-                            <TouchableOpacity style={styles.actionButton}>
-                                <MaterialIcons name="share" size={16} color={HistoryColors.secondary} />
-                                <Text style={styles.actionTextShare}>Share</Text>
-                            </TouchableOpacity>
-                            
-                            <TouchableOpacity style={styles.actionButton}>
-                                <MaterialIcons name="delete-outline" size={16} color="rgba(186, 26, 26, 0.7)" />
-                                <Text style={styles.actionTextRemove}>Remove</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
                 );
             })}
         </View>

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import {
-  StyleSheet,
-  View,
+    StyleSheet,
+    View,
 } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useIsFocused } from '@react-navigation/native';
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#000',
     },
-    camera:{
+    camera: {
         width: '100%',
         height: '100%',
     },
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     overlayContainer: {
         flex: 1,
         zIndex: 10,
-        paddingBottom: 60,   
+        paddingBottom: 60,
     },
     overlayDim: {
         flex: 1,

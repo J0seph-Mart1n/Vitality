@@ -12,29 +12,29 @@ export default function HealthScore({ healthScoreInt, scoreSentence }: HealthSco
     return (
         <View style={styles.heroSection}>
             <View style={styles.heroTextContainer}>
-              <Text style={styles.heroTitle}>Scan Analysis</Text>
+                <Text style={styles.heroTitle}>Scan Analysis</Text>
             </View>
 
             {/* Health Score Card */}
             <View style={styles.scoreCard}>
-              <View style={styles.scoreRingContainer}>
-                <Svg width={96} height={96} viewBox="0 0 96 96" style={{ transform: [{ rotate: '-90deg' }] }}>
-                  {/* Background Track */}
-                  <Circle cx={48} cy={48} r={40} stroke={ReportColors.surfaceContainerHighest} strokeWidth={8} fill="transparent" />
-                  {/* Progress Ring */}
-                  <Circle cx={48} cy={48} r={40} stroke={ReportColors.primary} strokeWidth={8} fill="transparent"
-                    strokeDasharray={251.2} strokeDashoffset={251.2 - (healthScoreInt / 100) * 251.2} strokeLinecap="round" />
-                </Svg>
-                <View style={styles.scoreTextOverlay}>
-                  <Text style={styles.scoreNumber}>{healthScoreInt}</Text>
+                <View style={styles.scoreRingContainer}>
+                    <Svg width={96} height={96} viewBox="0 0 96 96" style={{ transform: [{ rotate: '-90deg' }] }}>
+                        {/* Background Track */}
+                        <Circle cx={48} cy={48} r={40} stroke={ReportColors.surfaceContainerHighest} strokeWidth={8} fill="transparent" />
+                        {/* Progress Ring */}
+                        <Circle cx={48} cy={48} r={40} stroke={ReportColors.primary} strokeWidth={8} fill="transparent"
+                            strokeDasharray={251.2} strokeDashoffset={251.2 - (healthScoreInt / 100) * 251.2} strokeLinecap="round" />
+                    </Svg>
+                    <View style={styles.scoreTextOverlay}>
+                        <Text style={styles.scoreNumber}>{healthScoreInt}</Text>
+                    </View>
                 </View>
-              </View>
-              <View style={styles.scoreTextContainer}>
-                <Text style={styles.scoreTitle}>Health Score</Text>
-                <Text style={styles.scoreSubtitle}>
-                  {scoreSentence}
-                </Text>
-              </View>
+                <View style={styles.scoreTextContainer}>
+                    <Text style={styles.scoreTitle}>Health Score</Text>
+                    <Text style={styles.scoreSubtitle}>
+                        {scoreSentence}
+                    </Text>
+                </View>
             </View>
         </View>
     );

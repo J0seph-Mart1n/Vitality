@@ -71,8 +71,8 @@ export default function CustomDrawerContent(props: any) {
 
       {/* Logout Button sticks to bottom */}
       <View style={styles.footer}>
-        <TouchableOpacity 
-          style={styles.logoutBtn} 
+        <TouchableOpacity
+          style={styles.logoutBtn}
           activeOpacity={0.8}
           onPress={handleSignOut}
         >

@@ -4,29 +4,29 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { HistoryColors } from '@/constants/Colors';
 
 interface SearchBarProps {
-    searchQuery: string;
-    setSearchQuery: (text: string) => void;
+  searchQuery: string;
+  setSearchQuery: (text: string) => void;
 }
 
 export const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
-    return (
-        <View style={styles.searchSection}>
-            <View style={styles.searchBox}>
-                <MaterialIcons name="search" size={22} color="rgba(63, 74, 60, 0.5)" style={styles.searchIcon} />
-                <TextInput
-                style={styles.searchInput}
-                placeholder="Search your scan history..."
-                placeholderTextColor="rgba(63, 74, 60, 0.4)"
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-            />
-            </View>
-        </View>
-    );
+  return (
+    <View style={styles.searchSection}>
+      <View style={styles.searchBox}>
+        <MaterialIcons name="search" size={22} color="rgba(63, 74, 60, 0.5)" style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search your scan history..."
+          placeholderTextColor="rgba(63, 74, 60, 0.4)"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    searchSection: {
+  searchSection: {
     marginBottom: 40,
   },
   searchBox: {

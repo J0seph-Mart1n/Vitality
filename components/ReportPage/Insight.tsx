@@ -55,21 +55,21 @@ export default function Insight({ summaryInsight, parsedData }: InsightProps) {
             <View style={styles.insightGlow} />
             <Text style={styles.insightTitle}>Vitality Insight</Text>
             <Text style={styles.insightDesc}>
-              "{summaryInsight}"
+                "{summaryInsight}"
             </Text>
-            <TouchableOpacity 
-              style={styles.insightButton} 
-              onPress={handleSave} 
-              disabled={isSaving}
+            <TouchableOpacity
+                style={styles.insightButton}
+                onPress={handleSave}
+                disabled={isSaving}
             >
-              {isSaving ? (
-                 <ActivityIndicator color={ReportColors.white} size="small" />
-              ) : (
-                 <>
-                   <Text style={styles.insightButtonText}>Save My Scan</Text>
-                   <MaterialIcons name="bookmark" size={20} color={ReportColors.white} />
-                 </>
-              )}
+                {isSaving ? (
+                    <ActivityIndicator color={ReportColors.white} size="small" />
+                ) : (
+                    <>
+                        <Text style={styles.insightButtonText}>Save My Scan</Text>
+                        <MaterialIcons name="bookmark" size={20} color={ReportColors.white} />
+                    </>
+                )}
             </TouchableOpacity>
         </View>
     );

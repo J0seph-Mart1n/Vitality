@@ -23,52 +23,52 @@ const HistoryScreen = () => {
             setIsLoading(true);
         }
         try {
-                    const user = FIREBASE_AUTH.currentUser;
-                    if (!user) return;
-                    const token = await user.getIdToken();
-                    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-                    
-                    const response = await fetch(`${apiUrl}/scan-history`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        
-                        // Map backend ScannedLabel into Frontend ScanItem
-                        const mappedScans = data.map((doc: any, index: number) => {
-                            let title = "Saved Scan";
-                            if (doc.data?.title) {
-                                title = doc.data?.title; // Fallback summary title
-                            }
-                            // Extract title cleanly if there are ingredients/bullets
-                            const scoreStr = String(doc.data?.health_score?.score || "0");
-                            const match = scoreStr.match(/\d+/);
-                            const scoreNum = match ? parseInt(match[0], 10) : 0;
-                            
-                            const d = new Date(doc.created_at);
-                            const formattedDate = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const user = FIREBASE_AUTH.currentUser;
+            if (!user) return;
+            const token = await user.getIdToken();
+            const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
-                            return {
-                                id: doc.id || index,
-                                title: title,
-                                date: formattedDate,
-                                score: scoreNum,
-                                rawData: doc.data
-                            };
-                        });
-                        setFetchedScans(mappedScans);
+            const response = await fetch(`${apiUrl}/scan-history`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                // Map backend ScannedLabel into Frontend ScanItem
+                const mappedScans = data.map((doc: any, index: number) => {
+                    let title = "Saved Scan";
+                    if (doc.data?.title) {
+                        title = doc.data?.title; // Fallback summary title
                     }
-                } catch (error) {
-                    console.error("Failed to fetch history:", error);
-            } finally {
-                setIsLoading(false);
-                setRefreshing(false);
+                    // Extract title cleanly if there are ingredients/bullets
+                    const scoreStr = String(doc.data?.health_score?.score || "0");
+                    const match = scoreStr.match(/\d+/);
+                    const scoreNum = match ? parseInt(match[0], 10) : 0;
+
+                    const d = new Date(doc.created_at);
+                    const formattedDate = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    return {
+                        id: doc.id || index,
+                        title: title,
+                        date: formattedDate,
+                        score: scoreNum,
+                        rawData: doc.data
+                    };
+                });
+                setFetchedScans(mappedScans);
             }
-        };
+        } catch (error) {
+            console.error("Failed to fetch history:", error);
+        } finally {
+            setIsLoading(false);
+            setRefreshing(false);
+        }
+    };
 
     useEffect(() => {
         fetchHistory();
@@ -79,7 +79,7 @@ const HistoryScreen = () => {
     };
 
     // Filter logic
-    const filteredScans = fetchedScans.filter(scan => 
+    const filteredScans = fetchedScans.filter(scan =>
         scan.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -88,15 +88,15 @@ const HistoryScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <TopBar />
-            <ScrollView 
-                showsVerticalScrollIndicator={false} 
+            <ScrollView
+                showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.scrollContent}
                 refreshControl={
-                    <RefreshControl 
-                        refreshing={refreshing} 
-                        onRefresh={onRefresh} 
-                        colors={[HistoryColors.primary]} 
-                        tintColor={HistoryColors.primary} 
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        colors={[HistoryColors.primary]}
+                        tintColor={HistoryColors.primary}
                     />
                 }
             >
@@ -118,10 +118,10 @@ const HistoryScreen = () => {
                 ) : (
                     <>
                         <HistoryEntries displayedScans={displayedScans} />
-                        <LoadMore 
-                            visibleCount={visibleCount} 
-                            recentScans={filteredScans} 
-                            setVisibleCount={setVisibleCount} 
+                        <LoadMore
+                            visibleCount={visibleCount}
+                            recentScans={filteredScans}
+                            setVisibleCount={setVisibleCount}
                         />
                     </>
                 )}
@@ -131,15 +131,15 @@ const HistoryScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: HistoryColors.surface,
-  },
-  scrollContent: {
-    paddingTop: 96,
-    paddingBottom: 130, // Clearance for absolute bottom nav (from layout)
-    paddingHorizontal: 24,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: HistoryColors.surface,
+    },
+    scrollContent: {
+        paddingTop: 96,
+        paddingBottom: 130, // Clearance for absolute bottom nav (from layout)
+        paddingHorizontal: 24,
+    },
 });
 
 export default HistoryScreen;

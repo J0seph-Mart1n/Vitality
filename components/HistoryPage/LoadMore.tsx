@@ -7,14 +7,14 @@ interface LoadMoreProps {
     setVisibleCount: (count: number) => void;
 }
 
-export const LoadMore = ({visibleCount, recentScans, setVisibleCount}: LoadMoreProps) => {
+export const LoadMore = ({ visibleCount, recentScans, setVisibleCount }: LoadMoreProps) => {
     if (visibleCount >= recentScans.length) {
         return null;
     }
 
     return (
         <View style={styles.loadMoreContainer}>
-            <TouchableOpacity 
+            <TouchableOpacity
                 style={styles.loadMoreBtn}
                 onPress={() => setVisibleCount(visibleCount + 4)}
             >

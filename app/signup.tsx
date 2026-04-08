@@ -57,7 +57,7 @@ export default function SignupScreen() {
     // Redirect into the main app dashboard on success! 
     // Since (tabs) is now nested inside the (drawer) layout, we specify the full path!
 
-    
+
   };
 
   return (

@@ -52,7 +52,7 @@ export default function ScanReportScreen() {
   // Extract number from score if LM outputted something like "85/100"
   const parsedScoreMatch = scoreRaw.match(/\d+/);
   const healthScoreInt = parsedScoreMatch ? parseInt(parsedScoreMatch[0], 10) : 0;
-  
+
   const scoreSentence = parsedData.health_score?.sentence || "";
   const summaryInsight = parsedData.summary || "No insights discovered.";
 
@@ -64,7 +64,7 @@ export default function ScanReportScreen() {
       <TopBar />
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        
+
         {/* Health Score Section */}
         <HealthScore healthScoreInt={healthScoreInt} scoreSentence={scoreSentence} />
 

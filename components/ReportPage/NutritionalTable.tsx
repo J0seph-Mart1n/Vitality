@@ -10,25 +10,25 @@ export default function NutritionalTable({ mappedNutritionFacts }: NutritionalTa
     return (
         <View style={styles.tableCard}>
             <View style={styles.tableHeader}>
-              <Text style={styles.tableTitle}>Nutritional Facts</Text>
+                <Text style={styles.tableTitle}>Nutritional Facts</Text>
             </View>
-            
+
             <View style={styles.tableHeadRow}>
-              <Text style={[styles.tableHeadText, { flex: 2 }]}>NUTRIENT</Text>
-              <Text style={[styles.tableHeadText, { flex: 1, textAlign: 'right' }]}>AMOUNT</Text>
+                <Text style={[styles.tableHeadText, { flex: 2 }]}>NUTRIENT</Text>
+                <Text style={[styles.tableHeadText, { flex: 1, textAlign: 'right' }]}>AMOUNT</Text>
             </View>
 
             {mappedNutritionFacts.map((row, index) => (
-              <View key={row.id} style={[styles.tableRow, index !== mappedNutritionFacts.length - 1 && styles.tableRowBorder]}>
-                <Text style={[styles.tableCellMain, { flex: 2 }]}>{row.name}</Text>
-                <Text style={[styles.tableCellSub, { flex: 1, textAlign: 'right' }]}>{row.amount}</Text>
-              </View>
+                <View key={row.id} style={[styles.tableRow, index !== mappedNutritionFacts.length - 1 && styles.tableRowBorder]}>
+                    <Text style={[styles.tableCellMain, { flex: 2 }]}>{row.name}</Text>
+                    <Text style={[styles.tableCellSub, { flex: 1, textAlign: 'right' }]}>{row.amount}</Text>
+                </View>
             ))}
 
             <View style={styles.tableFooter}>
-              <Text style={styles.tableFooterText}>
-                * Values are analyzed based on the provided nutritional label image. Accuracy depends on the clarity of the image.
-              </Text>
+                <Text style={styles.tableFooterText}>
+                    * Values are analyzed based on the provided nutritional label image. Accuracy depends on the clarity of the image.
+                </Text>
             </View>
         </View>
     );

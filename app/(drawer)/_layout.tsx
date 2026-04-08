@@ -19,9 +19,9 @@ export default function DrawerLayout() {
       }}
     >
       {/* This automatically captures and registers your bottom tabs layout perfectly */}
-      <Drawer.Screen 
-        name="(tabs)" 
-        options={{ drawerLabel: 'Home' }} 
+      <Drawer.Screen
+        name="(tabs)"
+        options={{ drawerLabel: 'Home' }}
       />
     </Drawer>
   );

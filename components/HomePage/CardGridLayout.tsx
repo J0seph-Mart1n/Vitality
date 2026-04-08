@@ -7,109 +7,109 @@ import { colors } from '@/constants/Colors';
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 export default function CardGridLayout() {
-    const progressAnim1 = useRef(new Animated.Value(0)).current;
-    const progressAnim2 = useRef(new Animated.Value(0)).current;
-    const progressAnim3 = useRef(new Animated.Value(0)).current;
-    
-    // Run the animation when the component mounts or app refreshes
-    useEffect(() => {
-      progressAnim1.setValue(0);
-      Animated.timing(progressAnim1, {
-        toValue: 56, // target percentage
-        duration: 1000,
-        useNativeDriver: false,
-      }).start();
+  const progressAnim1 = useRef(new Animated.Value(0)).current;
+  const progressAnim2 = useRef(new Animated.Value(0)).current;
+  const progressAnim3 = useRef(new Animated.Value(0)).current;
 
-      progressAnim2.setValue(0);
-      Animated.timing(progressAnim2, {
-        toValue: 65, // target percentage
-        duration: 1000,
-        useNativeDriver: false,
-      }).start();
+  // Run the animation when the component mounts or app refreshes
+  useEffect(() => {
+    progressAnim1.setValue(0);
+    Animated.timing(progressAnim1, {
+      toValue: 56, // target percentage
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
 
-      progressAnim3.setValue(0);
-      Animated.timing(progressAnim3, {
-        toValue: 82, // target percentage
-        duration: 1000,
-        useNativeDriver: false,
-      }).start();
-    }, []);
+    progressAnim2.setValue(0);
+    Animated.timing(progressAnim2, {
+      toValue: 65, // target percentage
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
 
-    const progressWidth1 = progressAnim1.interpolate({
-      inputRange: [0, 100],
-      outputRange: ['0%', '100%']
-    });
+    progressAnim3.setValue(0);
+    Animated.timing(progressAnim3, {
+      toValue: 82, // target percentage
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+  }, []);
 
-    const progressWidth2 = progressAnim2.interpolate({
-      inputRange: [0, 100],
-      outputRange: ['0%', '100%']
-    });
+  const progressWidth1 = progressAnim1.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%']
+  });
 
-    const progressWidth3 = progressAnim3.interpolate({
-      inputRange: [0, 100],
-      outputRange: ['0%', '100%']
-    });
+  const progressWidth2 = progressAnim2.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%']
+  });
 
-    return (
-        <View style={styles.bentoGrid}>
-            {/* Large Calorie Card */}
-            <View style={[styles.card, styles.calorieCard]}>
-              <View style={styles.cardHeaderRow}>
-                <Text style={styles.cardLabel}>Calories</Text>
-                <View style={styles.iconCircle}>
-                  <MaterialIcons name="bolt" size={20} color={colors.primary} />
-                </View>
-              </View>
-              <View style={styles.calorieValues}>
-                <Text style={styles.calorieCurrent}>1,840</Text>
-                <Text style={styles.calorieTotal}> / 2,400</Text>
-              </View>
-              <View style={styles.progressBarBg}>
-                <AnimatedLinearGradient
-                  colors={[colors.primary, colors.primaryContainer]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  style={[styles.progressBarFill, { width: progressWidth1 }]}
-                />
-              </View>
-            </View>
+  const progressWidth3 = progressAnim3.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%']
+  });
 
-            {/* Sub-Macros Row */}
-            <View style={styles.macroRow}>
-              {/* Carbs */}
-              <View style={[styles.card, styles.macroCard]}>
-                <Text style={styles.cardLabelLeft}>CARBS</Text>
-                <View style={styles.macroContent}>
-                  <Text style={styles.macroValue}>210g</Text>
-                  <View style={styles.progressBarBgSm}>
-                    <AnimatedLinearGradient
-                        colors={[colors.primary, colors.primaryContainer]}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={[styles.progressBarFill, { width: progressWidth2 }]}
-                    />
-                  </View>
-                </View>
-              </View>
-
-              {/* Protein */}
-              <View style={[styles.card, styles.macroCard]}>
-                <Text style={styles.cardLabelLeft}>PROTEIN</Text>
-                <View style={styles.macroContent}>
-                  <Text style={styles.macroValue}>95g</Text>
-                  <View style={styles.progressBarBgSm}>
-                    <AnimatedLinearGradient
-                        colors={[colors.primary, colors.primaryContainer]}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={[styles.progressBarFill, { width: progressWidth3 }]}
-                    />
-                  </View>
-                </View>
-              </View>
-            </View>
+  return (
+    <View style={styles.bentoGrid}>
+      {/* Large Calorie Card */}
+      <View style={[styles.card, styles.calorieCard]}>
+        <View style={styles.cardHeaderRow}>
+          <Text style={styles.cardLabel}>Calories</Text>
+          <View style={styles.iconCircle}>
+            <MaterialIcons name="bolt" size={20} color={colors.primary} />
+          </View>
         </View>
-    )
+        <View style={styles.calorieValues}>
+          <Text style={styles.calorieCurrent}>1,840</Text>
+          <Text style={styles.calorieTotal}> / 2,400</Text>
+        </View>
+        <View style={styles.progressBarBg}>
+          <AnimatedLinearGradient
+            colors={[colors.primary, colors.primaryContainer]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={[styles.progressBarFill, { width: progressWidth1 }]}
+          />
+        </View>
+      </View>
+
+      {/* Sub-Macros Row */}
+      <View style={styles.macroRow}>
+        {/* Carbs */}
+        <View style={[styles.card, styles.macroCard]}>
+          <Text style={styles.cardLabelLeft}>CARBS</Text>
+          <View style={styles.macroContent}>
+            <Text style={styles.macroValue}>210g</Text>
+            <View style={styles.progressBarBgSm}>
+              <AnimatedLinearGradient
+                colors={[colors.primary, colors.primaryContainer]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={[styles.progressBarFill, { width: progressWidth2 }]}
+              />
+            </View>
+          </View>
+        </View>
+
+        {/* Protein */}
+        <View style={[styles.card, styles.macroCard]}>
+          <Text style={styles.cardLabelLeft}>PROTEIN</Text>
+          <View style={styles.macroContent}>
+            <Text style={styles.macroValue}>95g</Text>
+            <View style={styles.progressBarBgSm}>
+              <AnimatedLinearGradient
+                colors={[colors.primary, colors.primaryContainer]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={[styles.progressBarFill, { width: progressWidth3 }]}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

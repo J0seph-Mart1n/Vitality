@@ -2,22 +2,22 @@ import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '@/constants/Colors';
 
 export default function DailyProgress() {
-    return (
-        <View style={styles.balanceHeader}>
-            <View>
-                <Text style={styles.sectionLabel}>Daily Health Summary</Text>
-                <Text style={styles.balanceTitle}>Your Balance</Text>
-            </View>
-            <View style={{ alignItems: 'flex-end' }}>
-                <Text style={styles.goalPercentage}>72%</Text>
-                <Text style={styles.goalLabel}>Daily Goal</Text>
-            </View>
-        </View>
-    );
+  return (
+    <View style={styles.balanceHeader}>
+      <View>
+        <Text style={styles.sectionLabel}>Daily Health Summary</Text>
+        <Text style={styles.balanceTitle}>Your Balance</Text>
+      </View>
+      <View style={{ alignItems: 'flex-end' }}>
+        <Text style={styles.goalPercentage}>72%</Text>
+        <Text style={styles.goalLabel}>Daily Goal</Text>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    balanceHeader: {
+  balanceHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',

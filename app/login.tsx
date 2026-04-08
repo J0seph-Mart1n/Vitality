@@ -40,7 +40,7 @@ export default function LoginScreen() {
             setError('Please enter both email and password.');
             return;
         }
-        
+
         // 1. Perform your authentication logic here...
         setLoading(true);
         setError('');
@@ -56,131 +56,131 @@ export default function LoginScreen() {
         }
         // 2. Navigate to the Dashboard (the index file inside the tabs folder)
         // Since (tabs) is now nested inside the (drawer) layout, we specify the full path!
-        
+
     };
 
-    
+
 
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             style={styles.container}
         >
-        {/* Background Layers */}
-        <View style={StyleSheet.absoluteFill}>
-            <LinearGradient
-                colors={['#4CAF50', 'rgba(76, 175, 80, 0.95)', 'rgba(76, 175, 80, 0.9)']}
-                style={StyleSheet.absoluteFill}
-            />
-            <Image
-                source={{
-                    uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB9KwAKq--iSguIEqQGhCy-8wPvUSlV-zdTDLPNEvkP2wa1HgUAgr5hY-uMOlLFWfEjmpaB9oh5FkEBcqYgd8-QToHPP_cJulac0RGo6quGtr--qqrIrz4Sq11BfwFhnZ6deVjXErmuZRxI1XQ-W15-eYpo06MfV-WL5nkbK4lTiyIMvCkatZN7uAK2Aficj5Eyq49gixVv1Viqz2ewZ5WHDVeM_eRiO50jTpa-nS6a3FpVWXqbKWpWMrbMHUC8x2LXdbV-vQKzLUU',
-                }}
-                style={styles.backgroundImage}
-                resizeMode="cover"
-            />
-        </View>
-
-        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-            {/* Glassmorphism Panel */}
-            <BlurView intensity={95} tint="light" style={styles.glassPanel}>
-            
-            {/* Header */}
-            <View style={styles.header}>
-                <View style={styles.logoBox}>
-                    <MaterialIcons name="monitor-heart" size={36} color={colors.white} />
-                </View>
-                <Text style={styles.title}>Vitality</Text>
-                <Text style={styles.subtitle}>Elevate your daily wellness sanctuary</Text>
+            {/* Background Layers */}
+            <View style={StyleSheet.absoluteFill}>
+                <LinearGradient
+                    colors={['#4CAF50', 'rgba(76, 175, 80, 0.95)', 'rgba(76, 175, 80, 0.9)']}
+                    style={StyleSheet.absoluteFill}
+                />
+                <Image
+                    source={{
+                        uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB9KwAKq--iSguIEqQGhCy-8wPvUSlV-zdTDLPNEvkP2wa1HgUAgr5hY-uMOlLFWfEjmpaB9oh5FkEBcqYgd8-QToHPP_cJulac0RGo6quGtr--qqrIrz4Sq11BfwFhnZ6deVjXErmuZRxI1XQ-W15-eYpo06MfV-WL5nkbK4lTiyIMvCkatZN7uAK2Aficj5Eyq49gixVv1Viqz2ewZ5WHDVeM_eRiO50jTpa-nS6a3FpVWXqbKWpWMrbMHUC8x2LXdbV-vQKzLUU',
+                    }}
+                    style={styles.backgroundImage}
+                    resizeMode="cover"
+                />
             </View>
 
-            {/* Form */}
-            <View style={styles.form}>
-                {/* Email Input */}
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>EMAIL ADDRESS</Text>
-                    <View style={styles.inputWrapper}>
-                        <TextInput
-                        style={styles.input}
-                        placeholder="name@example.com"
-                        placeholderTextColor={colors.zinc400}
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        value={email}
-                        onChangeText={setEmail}
-                        />
-                        <MaterialIcons name="mail" size={20} color={colors.zinc400} style={styles.inputIcon} />
+            <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+                {/* Glassmorphism Panel */}
+                <BlurView intensity={95} tint="light" style={styles.glassPanel}>
+
+                    {/* Header */}
+                    <View style={styles.header}>
+                        <View style={styles.logoBox}>
+                            <MaterialIcons name="monitor-heart" size={36} color={colors.white} />
+                        </View>
+                        <Text style={styles.title}>Vitality</Text>
+                        <Text style={styles.subtitle}>Elevate your daily wellness sanctuary</Text>
                     </View>
-                </View>
 
-                {/* Password Input */}
-                <View style={styles.inputContainer}>
-                    <View style={styles.labelRow}>
-                        <Text style={styles.label}>PASSWORD</Text>
+                    {/* Form */}
+                    <View style={styles.form}>
+                        {/* Email Input */}
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>EMAIL ADDRESS</Text>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="name@example.com"
+                                    placeholderTextColor={colors.zinc400}
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"
+                                    value={email}
+                                    onChangeText={setEmail}
+                                />
+                                <MaterialIcons name="mail" size={20} color={colors.zinc400} style={styles.inputIcon} />
+                            </View>
+                        </View>
+
+                        {/* Password Input */}
+                        <View style={styles.inputContainer}>
+                            <View style={styles.labelRow}>
+                                <Text style={styles.label}>PASSWORD</Text>
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="••••••••"
+                                    placeholderTextColor={colors.zinc400}
+                                    secureTextEntry
+                                    value={password}
+                                    onChangeText={setPassword}
+                                />
+                                <MaterialIcons name="lock" size={20} color={colors.zinc400} style={styles.inputIcon} />
+                            </View>
+                        </View>
+
+                        {/* Error Logic */}
+                        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+                        {/* Login Button */}
+                        <TouchableOpacity style={styles.loginBtn} activeOpacity={0.8} onPress={handleLogin} disabled={loading}>
+                            {loading ? (
+                                <ActivityIndicator color={colors.white} />
+                            ) : (
+                                <>
+                                    <Text style={styles.loginBtnText}>Log In</Text>
+                                    <MaterialIcons name="arrow-forward" size={20} color={colors.white} />
+                                </>
+                            )}
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.inputWrapper}>
-                        <TextInput
-                        style={styles.input}
-                        placeholder="••••••••"
-                        placeholderTextColor={colors.zinc400}
-                        secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
-                        />
-                        <MaterialIcons name="lock" size={20} color={colors.zinc400} style={styles.inputIcon} />
+
+                    {/* Divider */}
+                    <View style={styles.dividerContainer}>
+                        <View style={styles.dividerLine} />
+                        <Text style={styles.dividerText}>OR CONTINUE WITH</Text>
+                        <View style={styles.dividerLine} />
                     </View>
-                </View>
 
-                {/* Error Logic */}
-                {error ? <Text style={styles.errorText}>{error}</Text> : null}
+                    {/* Social Logins */}
+                    <View style={styles.socialGrid}>
+                        <TouchableOpacity style={styles.socialBtn}>
+                            <Image
+                                source={{
+                                    uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBzLe0Pj425IfcrBXi7u_OcRgCmwgL2LdzKXHCSBVG4sstFRH7NlalC_arWrz8uzaFbRWzhZrnC2cml0Lfd2OZ2ENgMC_jmbXhngLmVyYeS8pMzNDZupHGA-_hflu8sWesDiq-g_mcoVyl9pn-8cbZPX9Rq-pQ-_yY1HbTk23bR6_qrV2siA49RseiS9T3K-_9zn_i3QNlPrCybT3KtclkPaKhY3lsVsQ9Vboy9v-ldKDzXPWgOZ7nKfml2ovvPBJntoSt6RqmVuT8',
+                                }}
+                                style={styles.socialIconImage}
+                            />
+                            <Text style={styles.socialBtnText}>GOOGLE</Text>
+                        </TouchableOpacity>
 
-                {/* Login Button */}
-                <TouchableOpacity style={styles.loginBtn} activeOpacity={0.8} onPress={handleLogin} disabled={loading}>
-                    {loading ? (
-                        <ActivityIndicator color={colors.white} />
-                    ) : (
-                        <>
-                            <Text style={styles.loginBtnText}>Log In</Text>
-                            <MaterialIcons name="arrow-forward" size={20} color={colors.white} />
-                        </>
-                    )}
-                </TouchableOpacity>
-            </View>
+                        <TouchableOpacity style={styles.socialBtn}>
+                            <FontAwesome name="apple" size={20} color={colors.onSurface} />
+                            <Text style={styles.socialBtnText}>APPLE</Text>
+                        </TouchableOpacity>
+                    </View>
 
-            {/* Divider */}
-            <View style={styles.dividerContainer}>
-                <View style={styles.dividerLine} />
-                <Text style={styles.dividerText}>OR CONTINUE WITH</Text>
-                <View style={styles.dividerLine} />
-            </View>
-
-            {/* Social Logins */}
-            <View style={styles.socialGrid}>
-                <TouchableOpacity style={styles.socialBtn}>
-                    <Image
-                        source={{
-                        uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBzLe0Pj425IfcrBXi7u_OcRgCmwgL2LdzKXHCSBVG4sstFRH7NlalC_arWrz8uzaFbRWzhZrnC2cml0Lfd2OZ2ENgMC_jmbXhngLmVyYeS8pMzNDZupHGA-_hflu8sWesDiq-g_mcoVyl9pn-8cbZPX9Rq-pQ-_yY1HbTk23bR6_qrV2siA49RseiS9T3K-_9zn_i3QNlPrCybT3KtclkPaKhY3lsVsQ9Vboy9v-ldKDzXPWgOZ7nKfml2ovvPBJntoSt6RqmVuT8',
-                        }}
-                        style={styles.socialIconImage}
-                    />
-                    <Text style={styles.socialBtnText}>GOOGLE</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.socialBtn}>
-                    <FontAwesome name="apple" size={20} color={colors.onSurface} />
-                    <Text style={styles.socialBtnText}>APPLE</Text>
-                </TouchableOpacity>
-            </View>
-
-            {/* Footer */}
-            <View style={styles.footer}>
-                <Text style={styles.footerText}>New to the sanctuary? </Text>
-                <TouchableOpacity onPress={() => router.push('/signup')}>
-                    <Text style={styles.footerLink}>Create Account</Text>
-                </TouchableOpacity>
-            </View>
-            </BlurView>
-        </ScrollView>
+                    {/* Footer */}
+                    <View style={styles.footer}>
+                        <Text style={styles.footerText}>New to the sanctuary? </Text>
+                        <TouchableOpacity onPress={() => router.push('/signup')}>
+                            <Text style={styles.footerLink}>Create Account</Text>
+                        </TouchableOpacity>
+                    </View>
+                </BlurView>
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }
