@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from 'react';
-import { StyleSheet, ScrollView, View, ActivityIndicator, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, ScrollView, View, ActivityIndicator, Text, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
 import TopBar from '@/components/HomePage/TopBar';
 import { SearchBar } from '@/components/HistoryPage/SearchBar';
 import { ListHeader } from '@/components/HistoryPage/ListHeader';
@@ -15,12 +14,15 @@ const HistoryScreen = () => {
     const [visibleCount, setVisibleCount] = useState(4);
     const [fetchedScans, setFetchedScans] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
 
-    useFocusEffect(
-        useCallback(() => {
-            const fetchHistory = async () => {
-                setIsLoading(true);
-                try {
+    const fetchHistory = async (isPullToRefresh = false) => {
+        if (isPullToRefresh) {
+            setRefreshing(true);
+        } else {
+            setIsLoading(true);
+        }
+        try {
                     const user = FIREBASE_AUTH.currentUser;
                     if (!user) return;
                     const token = await user.getIdToken();
@@ -62,14 +64,19 @@ const HistoryScreen = () => {
                     }
                 } catch (error) {
                     console.error("Failed to fetch history:", error);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
+            } finally {
+                setIsLoading(false);
+                setRefreshing(false);
+            }
+        };
 
-            fetchHistory();
-        }, [])
-    );
+    useEffect(() => {
+        fetchHistory();
+    }, []);
+
+    const onRefresh = () => {
+        fetchHistory(true);
+    };
 
     // Filter logic
     const filteredScans = fetchedScans.filter(scan => 
@@ -84,6 +91,14 @@ const HistoryScreen = () => {
             <ScrollView 
                 showsVerticalScrollIndicator={false} 
                 contentContainerStyle={styles.scrollContent}
+                refreshControl={
+                    <RefreshControl 
+                        refreshing={refreshing} 
+                        onRefresh={onRefresh} 
+                        colors={[HistoryColors.primary]} 
+                        tintColor={HistoryColors.primary} 
+                    />
+                }
             >
                 {/* Search Bar */}
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
