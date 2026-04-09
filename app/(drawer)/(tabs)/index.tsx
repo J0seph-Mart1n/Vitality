@@ -3,6 +3,7 @@ import DailyProgress from '@/components/HomePage/DailyProgress';
 import TopBar from '@/components/HomePage/TopBar';
 import TipSection from '@/components/HomePage/TipSection';
 import RecentScans from '@/components/HomePage/RecentScans';
+import LogFoodSection from '@/components/HomePage/LogFoodSection';
 import { colors } from '@/constants/Colors';
 import { ScrollView, StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,11 +21,16 @@ export default function HomePage() {
         <View style={styles.section}>
           <DailyProgress />
 
+          
+
           {/* Bento Grid */}
           <CardGridLayout />
 
           {/* Tip of the Day */}
           <TipSection />
+
+          {/* Log Food Section */}
+          <LogFoodSection />
 
           {/* Recent Scans */}
           <RecentScans />
