@@ -21,8 +21,6 @@ export default function HomePage() {
         <View style={styles.section}>
           <DailyProgress />
 
-          
-
           {/* Bento Grid */}
           <CardGridLayout />
 

@@ -8,9 +8,10 @@ import { FIREBASE_AUTH } from '@/FirebaseConfig';
 interface InsightProps {
     summaryInsight: string;
     parsedData: any;
+    isHistory?: boolean;
 }
 
-export default function Insight({ summaryInsight, parsedData }: InsightProps) {
+export default function Insight({ summaryInsight, parsedData, isHistory }: InsightProps) {
     const [isSaving, setIsSaving] = useState(false);
 
     const handleSave = async () => {
@@ -50,6 +51,20 @@ export default function Insight({ summaryInsight, parsedData }: InsightProps) {
         }
     };
 
+    const handleDailyLogSave = async () => { 
+        try {
+            if (!isHistory) {
+                handleSave();
+            }
+            router.push({
+                pathname: '/dailylog',
+                params: { scannedData: JSON.stringify(parsedData) }
+            });
+        } catch (error) {
+            Alert.alert("Error", "Failed to add to daily log");
+        }
+    }
+
     return (
         <View style={styles.insightCard}>
             <View style={styles.insightGlow} />
@@ -57,19 +72,29 @@ export default function Insight({ summaryInsight, parsedData }: InsightProps) {
             <Text style={styles.insightDesc}>
                 "{summaryInsight}"
             </Text>
+            {!isHistory && (
+                <TouchableOpacity
+                    style={styles.insightButton}
+                    onPress={handleSave}
+                    disabled={isSaving}
+                >
+                    {isSaving ? (
+                        <ActivityIndicator color={ReportColors.white} size="small" />
+                    ) : (
+                        <>
+                            <Text style={styles.insightButtonText}>Save My Scan</Text>
+                            <MaterialIcons name="bookmark" size={20} color={ReportColors.white} />
+                        </>
+                    )}
+                </TouchableOpacity>
+            )}
+            
             <TouchableOpacity
-                style={styles.insightButton}
-                onPress={handleSave}
-                disabled={isSaving}
+                style={[styles.insightButton, styles.insightSecondaryButton]}
+                onPress={handleDailyLogSave}
             >
-                {isSaving ? (
-                    <ActivityIndicator color={ReportColors.white} size="small" />
-                ) : (
-                    <>
-                        <Text style={styles.insightButtonText}>Save My Scan</Text>
-                        <MaterialIcons name="bookmark" size={20} color={ReportColors.white} />
-                    </>
-                )}
+                <Text style={styles.insightButtonText}>Add to Daily Log</Text>
+                <MaterialIcons name="add-task" size={20} color={ReportColors.white} />
             </TouchableOpacity>
         </View>
     );
@@ -119,5 +144,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '800',
         color: ReportColors.white,
+    },
+    insightSecondaryButton: {
+        marginTop: 12,
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.3)',
     },
 });

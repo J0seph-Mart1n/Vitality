@@ -8,12 +8,12 @@ export default function LogFoodSection() {
   return (
     <View>
       <Text style={styles.entryTitle}>Add Daily Food Entry</Text>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.card}
-        onPress={() => router.push('/dailylog')}
+        onPress={() => router.push({ pathname: '/dailylog', params: { scannedData: '' } })}
         activeOpacity={0.8}
       >
-        
+
         <View style={styles.iconContainer}>
           <MaterialIcons name="restaurant" size={24} color={colors.primary} />
         </View>

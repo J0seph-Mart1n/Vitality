@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Nutri_Scanner",
-    "slug": "Nutri_Scanner",
+    "name": "Vitality",
+    "slug": "Vitality",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "nutriscanner",
+    "scheme": "vitality",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash-icon.png",
@@ -23,7 +23,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.Nutri_Scanner"
+      "package": "com.anonymous.vitality"
     },
     "web": {
       "bundler": "metro",

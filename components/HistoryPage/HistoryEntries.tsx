@@ -36,6 +36,7 @@ export const HistoryEntries = ({ displayedScans }: HistoryEntriesProps) => {
                                     pathname: '/report',
                                     params: {
                                         analysisData: JSON.stringify(item.rawData),
+                                        isHistory: 'true'
                                     }
                                 });
                             }

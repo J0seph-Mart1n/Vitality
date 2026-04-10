@@ -15,7 +15,7 @@ import NutritionalTable from '@/components/ReportPage/NutritionalTable';
 import Insight from '@/components/ReportPage/Insight';
 
 export default function ScanReportScreen() {
-  const { analysisData } = useLocalSearchParams();
+  const { analysisData, isHistory } = useLocalSearchParams();
 
   if (!analysisData) {
     return null;
@@ -75,7 +75,7 @@ export default function ScanReportScreen() {
         <NutritionalTable mappedNutritionFacts={mappedNutritionFacts} />
 
         {/* Vitality Insight Section */}
-        <Insight summaryInsight={summaryInsight} parsedData={parsedData} />
+        <Insight summaryInsight={summaryInsight} parsedData={parsedData} isHistory={isHistory === 'true'} />
 
       </ScrollView>
     </SafeAreaView>
@@ -92,5 +92,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingBottom: 120, // Padding for Tab Bar
   },
-
 });
