@@ -6,7 +6,11 @@ import { colors, HistoryColors } from '@/constants/Colors';
 
 const VISIBLE_COUNT = 3;
 
-export default function RecentScans() {
+interface RecentScansProps {
+    refreshKey?: number;
+}
+
+export default function RecentScans({ refreshKey }: RecentScansProps) {
     const [fetchedScans, setFetchedScans] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -62,7 +66,7 @@ export default function RecentScans() {
 
     useEffect(() => {
         fetchHistory();
-    }, []);
+    }, [refreshKey]);
 
     const displayedScans = fetchedScans.slice(0, VISIBLE_COUNT);
 

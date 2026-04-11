@@ -6,34 +6,48 @@ import { colors } from '@/constants/Colors';
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
-export default function CardGridLayout() {
+const DAILY_GOALS = {
+  calories: 2400,
+  carbs: 325,
+  protein: 120,
+};
+
+interface CardGridLayoutProps {
+  totals: { calories: number; protein: number; carbs: number };
+}
+
+export default function CardGridLayout({ totals }: CardGridLayoutProps) {
   const progressAnim1 = useRef(new Animated.Value(0)).current;
   const progressAnim2 = useRef(new Animated.Value(0)).current;
   const progressAnim3 = useRef(new Animated.Value(0)).current;
 
-  // Run the animation when the component mounts or app refreshes
+  // Run the animation when totals change
   useEffect(() => {
+    const calPct = Math.min((totals.calories / DAILY_GOALS.calories) * 100, 100);
+    const carbPct = Math.min((totals.carbs / DAILY_GOALS.carbs) * 100, 100);
+    const protPct = Math.min((totals.protein / DAILY_GOALS.protein) * 100, 100);
+
     progressAnim1.setValue(0);
     Animated.timing(progressAnim1, {
-      toValue: 56, // target percentage
+      toValue: calPct,
       duration: 1000,
       useNativeDriver: false,
     }).start();
 
     progressAnim2.setValue(0);
     Animated.timing(progressAnim2, {
-      toValue: 65, // target percentage
+      toValue: carbPct,
       duration: 1000,
       useNativeDriver: false,
     }).start();
 
     progressAnim3.setValue(0);
     Animated.timing(progressAnim3, {
-      toValue: 82, // target percentage
+      toValue: protPct,
       duration: 1000,
       useNativeDriver: false,
     }).start();
-  }, []);
+  }, [totals]);
 
   const progressWidth1 = progressAnim1.interpolate({
     inputRange: [0, 100],
@@ -61,8 +75,8 @@ export default function CardGridLayout() {
           </View>
         </View>
         <View style={styles.calorieValues}>
-          <Text style={styles.calorieCurrent}>1,840</Text>
-          <Text style={styles.calorieTotal}> / 2,400</Text>
+          <Text style={styles.calorieCurrent}>{Math.round(totals.calories).toLocaleString()}</Text>
+          <Text style={styles.calorieTotal}> / {DAILY_GOALS.calories.toLocaleString()}</Text>
         </View>
         <View style={styles.progressBarBg}>
           <AnimatedLinearGradient
@@ -80,7 +94,7 @@ export default function CardGridLayout() {
         <View style={[styles.card, styles.macroCard]}>
           <Text style={styles.cardLabelLeft}>CARBS</Text>
           <View style={styles.macroContent}>
-            <Text style={styles.macroValue}>210g</Text>
+            <Text style={styles.macroValue}>{Math.round(totals.carbs)}g</Text>
             <View style={styles.progressBarBgSm}>
               <AnimatedLinearGradient
                 colors={[colors.primary, colors.primaryContainer]}
@@ -96,7 +110,7 @@ export default function CardGridLayout() {
         <View style={[styles.card, styles.macroCard]}>
           <Text style={styles.cardLabelLeft}>PROTEIN</Text>
           <View style={styles.macroContent}>
-            <Text style={styles.macroValue}>95g</Text>
+            <Text style={styles.macroValue}>{Math.round(totals.protein)}g</Text>
             <View style={styles.progressBarBgSm}>
               <AnimatedLinearGradient
                 colors={[colors.primary, colors.primaryContainer]}

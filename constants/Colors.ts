@@ -51,6 +51,7 @@ export const HistoryColors = {
   secondary: '#3c6842',
   tertiaryContainer: '#c59300',
   error: '#ba1a1a',
+  tabColors: '#5dac5b'
 };
 
 export const ReportColors = {

@@ -5,24 +5,83 @@ import TipSection from '@/components/HomePage/TipSection';
 import RecentScans from '@/components/HomePage/RecentScans';
 import LogFoodSection from '@/components/HomePage/LogFoodSection';
 import { colors } from '@/constants/Colors';
-import { ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { useState, useEffect, useMemo } from 'react';
+import { ScrollView, StatusBar, StyleSheet, View, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FIREBASE_AUTH } from '@/FirebaseConfig';
 
 
 export default function HomePage() {
+
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [dailyLogs, setDailyLogs] = useState<any[]>([]);
+
+  const fetchDailyLogs = async () => {
+    try {
+      const user = FIREBASE_AUTH.currentUser;
+      if (!user) return;
+      const token = await user.getIdToken();
+      const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+      const response = await fetch(`${apiUrl}/daily-log`, {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setDailyLogs(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch daily logs:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDailyLogs();
+  }, [refreshKey]);
+
+  const totals = useMemo(() => {
+    return dailyLogs.reduce(
+      (acc, log) => {
+        acc.calories += parseFloat(log.calories) || 0;
+        acc.protein += parseFloat(log.protein) || 0;
+        acc.carbs += parseFloat(log.carbs) || 0;
+        return acc;
+      },
+      { calories: 0, protein: 0, carbs: 0 }
+    );
+  }, [dailyLogs]);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    setRefreshKey(prev => prev + 1);
+    setTimeout(() => setRefreshing(false), 800);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
       {/* Top App Bar Fixed */}
       <TopBar />
 
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        contentContainerStyle={styles.scrollContent} 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={[colors.primary]}
+                tintColor={colors.primary}
+            />
+        }
+      >
         {/* Daily Progress Section */}
         <View style={styles.section}>
           <DailyProgress />
 
           {/* Bento Grid */}
-          <CardGridLayout />
+          <CardGridLayout totals={totals} />
 
           {/* Tip of the Day */}
           <TipSection />
@@ -31,7 +90,7 @@ export default function HomePage() {
           <LogFoodSection />
 
           {/* Recent Scans */}
-          <RecentScans />
+          <RecentScans refreshKey={refreshKey} />
         </View>
       </ScrollView>
     </SafeAreaView>

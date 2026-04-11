@@ -28,6 +28,7 @@ export const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
 const styles = StyleSheet.create({
   searchSection: {
     marginBottom: 40,
+    marginTop: 30,
   },
   searchBox: {
     flexDirection: 'row',
