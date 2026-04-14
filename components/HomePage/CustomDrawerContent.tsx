@@ -21,6 +21,14 @@ export default function CustomDrawerContent(props: any) {
     router.replace('/login');
   }
 
+  const user = FIREBASE_AUTH.currentUser;
+  
+  // Extract a name from email if displayName is missing (e.g. john.doe@mail.com -> john.doe)
+  const defaultNameFromEmail = user?.email ? user.email.split('@')[0] : 'User';
+  
+  const userName = user?.displayName || defaultNameFromEmail;
+  const userEmail = user?.email || 'wellness@example.com';
+
   return (
     <View style={styles.container}>
       {/* Dynamic Green Gradient Background */}
@@ -38,8 +46,8 @@ export default function CustomDrawerContent(props: any) {
             }}
             style={styles.drawerProfilePic}
           />
-          <Text style={styles.userName}>Jane Doe</Text>
-          <Text style={styles.userEmail}>wellness@example.com</Text>
+          <Text style={styles.userName}>{userName}</Text>
+          <Text style={styles.userEmail}>{userEmail}</Text>
         </View>
 
         {/* Divider */}

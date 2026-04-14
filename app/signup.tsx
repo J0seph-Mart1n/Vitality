@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,8 +15,12 @@ import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/FirebaseConfig';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+
+WebBrowser.maybeCompleteAuthSession();
 
 const colors = {
   brandGreen: '#4CAF50',
@@ -35,6 +39,25 @@ export default function SignupScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+      clientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+  });
+
+  useEffect(() => {
+      if (response?.type === 'success') {
+          const { id_token } = response.params;
+          const credential = GoogleAuthProvider.credential(id_token);
+          signInWithCredential(FIREBASE_AUTH, credential)
+              .then(() => {
+                  router.replace('/(drawer)/(tabs)');
+              })
+              .catch((err) => {
+                  console.error(err);
+                  setError('Google Auth Failed');
+              });
+      }
+  }, [response]);
+
   const handleSignup = async () => {
     if (!name || !email || !password) {
       setError('Please fill in all fields.');
@@ -46,6 +69,14 @@ export default function SignupScreen() {
     setError('');
     try {
       const response = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
+      
+      // Permanently save the full name to the Firebase user profile
+      if (response.user) {
+        await updateProfile(response.user, {
+          displayName: name
+        });
+      }
+
       console.log(response);
       router.replace('/(drawer)/(tabs)');
     } catch (err: any) {
@@ -171,7 +202,7 @@ export default function SignupScreen() {
 
           {/* Social Logins */}
           <View style={styles.socialGrid}>
-            <TouchableOpacity style={styles.socialBtn}>
+            <TouchableOpacity style={styles.socialBtn} onPress={() => promptAsync()} disabled={!request}>
               <Image
                 source={{
                   uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBzLe0Pj425IfcrBXi7u_OcRgCmwgL2LdzKXHCSBVG4sstFRH7NlalC_arWrz8uzaFbRWzhZrnC2cml0Lfd2OZ2ENgMC_jmbXhngLmVyYeS8pMzNDZupHGA-_hflu8sWesDiq-g_mcoVyl9pn-8cbZPX9Rq-pQ-_yY1HbTk23bR6_qrV2siA49RseiS9T3K-_9zn_i3QNlPrCybT3KtclkPaKhY3lsVsQ9Vboy9v-ldKDzXPWgOZ7nKfml2ovvPBJntoSt6RqmVuT8',
@@ -179,11 +210,6 @@ export default function SignupScreen() {
                 style={styles.socialIconImage}
               />
               <Text style={styles.socialBtnText}>GOOGLE</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.socialBtn}>
-              <FontAwesome name="apple" size={20} color={colors.onSurface} />
-              <Text style={styles.socialBtnText}>APPLE</Text>
             </TouchableOpacity>
           </View>
 

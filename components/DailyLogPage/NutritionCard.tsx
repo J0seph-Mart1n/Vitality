@@ -27,11 +27,11 @@ export default function NutritionCard({ foodName, calories, protein, carbs }: Nu
     return (
         <View style={styles.nutritionCard}>
             <View style={styles.cardHeaderRow}>
-                <View>
+                <View style={{ flex: 1, paddingRight: 16 }}>
                     <Text style={styles.cardSupertitle}>NUTRITIONAL ESTIMATE</Text>
-                    <Text style={styles.cardTitle}>{foodName}</Text>
+                    <Text style={styles.cardTitle} numberOfLines={1} ellipsizeMode="tail">{foodName}</Text>
                 </View>
-                <View style={{ alignItems: 'flex-end' }}>
+                <View style={{ alignItems: 'flex-end', flexShrink: 0 }}>
                     <Text style={styles.caloriesValue}>{calories}</Text>
                     <Text style={styles.caloriesLabel}>CALORIES</Text>
                 </View>

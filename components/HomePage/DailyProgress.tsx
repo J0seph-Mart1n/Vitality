@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '@/constants/Colors';
 
-export default function DailyProgress() {
+export default function DailyProgress({ calories = 0 }: { calories?: number }) {
+  const goalPercentage = Math.min((calories / 2400) * 100, 100);
   return (
     <View style={styles.balanceHeader}>
       <View>
@@ -9,7 +10,7 @@ export default function DailyProgress() {
         <Text style={styles.balanceTitle}>Your Balance</Text>
       </View>
       <View style={{ alignItems: 'flex-end' }}>
-        <Text style={styles.goalPercentage}>72%</Text>
+        <Text style={styles.goalPercentage}>{Math.round(goalPercentage)}%</Text>
         <Text style={styles.goalLabel}>Daily Goal</Text>
       </View>
     </View>

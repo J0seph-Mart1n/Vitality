@@ -64,21 +64,21 @@ export default function HomePage() {
       {/* Top App Bar Fixed */}
       <TopBar />
 
-      <ScrollView 
-        contentContainerStyle={styles.scrollContent} 
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         refreshControl={
-            <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                colors={[colors.primary]}
-                tintColor={colors.primary}
-            />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[colors.primary]}
+            tintColor={colors.primary}
+          />
         }
       >
         {/* Daily Progress Section */}
         <View style={styles.section}>
-          <DailyProgress />
+          <DailyProgress calories={totals.calories} />
 
           {/* Bento Grid */}
           <CardGridLayout totals={totals} />
